@@ -92,8 +92,21 @@ export default class Responses extends React.Component {
 
     return (
       <div className="responses-wrapper">
+        {
+          !tryItOutResponse ? null
+            : <div>
+              <LiveResponse response={ tryItOutResponse }
+                            getComponent={ getComponent }
+                            getConfigs={ getConfigs }
+                            specSelectors={ specSelectors }
+                            path={ this.props.path }
+                            method={ this.props.method }
+                            displayRequestDuration={ displayRequestDuration } />
+            </div>
+        }
+
         <div className="opblock-section-header">
-          <h4>Responses</h4>
+          <h4>Possible responses</h4>
             { specSelectors.isOAS3() ? null : <label htmlFor={controlId}>
               <span>Response content type</span>
               <ContentType value={producesValue}
@@ -106,20 +119,6 @@ export default class Responses extends React.Component {
                      </label> }
         </div>
         <div className="responses-inner">
-          {
-            !tryItOutResponse ? null
-                              : <div>
-                                  <LiveResponse response={ tryItOutResponse }
-                                                getComponent={ getComponent }
-                                                getConfigs={ getConfigs }
-                                                specSelectors={ specSelectors }
-                                                path={ this.props.path }
-                                                method={ this.props.method }
-                                                displayRequestDuration={ displayRequestDuration } />
-                                  <h4>Responses</h4>
-                                </div>
-
-          }
 
           <table aria-live="polite" className="responses-table" id={regionId} role="region">
             <thead>

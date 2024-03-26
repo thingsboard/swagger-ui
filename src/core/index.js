@@ -27,6 +27,7 @@ import ViewPlugin from "./plugins/view"
 import ViewLegacyPlugin from "core/plugins/view-legacy"
 import DownloadUrlPlugin from "./plugins/download-url"
 import SafeRenderPlugin from "./plugins/safe-render"
+import HttpLoginAuthPlugin from "./plugins/http-login-auth"
 
 import { parseSearch } from "./utils"
 import win from "./window"
@@ -272,4 +273,5 @@ SwaggerUI.plugins = {
   ViewLegacy: ViewLegacyPlugin,
   DownloadUrl: DownloadUrlPlugin,
   SafeRender: SafeRenderPlugin,
+  HttpLoginAuth: HttpLoginAuthPlugin
 }
