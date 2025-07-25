@@ -1,4 +1,3 @@
-
 import { fromJS } from "immutable"
 import { fromJSOrdered } from "core/utils"
 import {
@@ -7,6 +6,7 @@ import {
   contentTypeValues,
   operationScheme,
   specJsonWithResolvedSubtrees,
+  operations,
   producesOptionsFor,
   operationWithMeta,
   parameterWithMeta,
@@ -460,6 +460,7 @@ describe("specJsonWithResolvedSubtrees", function(){
                 },
                 security: [
                   {
+                    // eslint-disable-next-line camelcase
                     petstore_auth: [
                       "write:pets",
                       "read:pets"
@@ -1216,6 +1217,23 @@ describe("taggedOperations", function () {
       }
     })
   })
+  it("should gracefully handle a malformed paths defined as array", function () {
+    const state = fromJS({
+      json: {
+        tags: [null],
+        paths:[
+          {
+            "/users": null,
+            "get": null
+          }
+        ]
+      }
+    })
+
+    const result = operations(state)
+
+    expect(result.toJS()).toEqual([])
+  })
 })
 describe("isMediaTypeSchemaPropertiesEqual", () => {
   const stateSingleMediaType = fromJS({
@@ -1388,7 +1406,7 @@ describe("validationErrors", function() {
         "/": {
           get: {
             parameters: {
-              id: {
+              "query.id.hash": {
                 errors: [
                  "Value must be an integer"
                 ]
@@ -1397,15 +1415,64 @@ describe("validationErrors", function() {
           },
           post: {
             parameters: {
-              body: {
+              "query.with.dot.hash": {
                 errors: [
                   {
-                    error: "Value must be an integer", 
+                    error: "Value must be an integer",
                     propKey: "id"
                   },
-                  { 
-                    error: "Value must be a string", 
+                  {
+                    error: "Value must be a string",
                     propKey: "name"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "/nested": {
+          post: {
+            parameters: {
+              "query.arrayWithObjects.hash": {
+                errors: [
+                  {
+                    error: "Parameter string value must be valid JSON",
+                    index: 0
+                  },
+                  {
+                    error: {
+                      error: "Value must be a string",
+                      propKey: "name"
+                    },
+                    index: 1
+                  }
+                ]
+              },
+              "query.objectWithArray.hash": {
+                errors: [
+                  {
+                    error: {
+                      error: {
+                        error: "Value must be a number",
+                        propKey: "b",
+                      },
+                      index: 0,
+                    },
+                    propKey: "a",
+                  }
+                ]
+              },
+              "query.objectWithoutArray.hash": {
+                errors: [
+                  {
+                    error: {
+                      error: {
+                        error: "Value must be a string",
+                        propKey: "e",
+                      },
+                      propKey: "d",
+                    },
+                    propKey: "c",
                   }
                 ]
               }
@@ -1416,20 +1483,31 @@ describe("validationErrors", function() {
     }
   })
 
-  it("should return validation errors without formatting them", function () {
+  it("should return validation errors with parameter name", function () {
     const result = validationErrors(state, ["/", "get"])
 
     expect(result).toEqual([
-      "Value must be an integer"
+      "For 'id': Value must be an integer."
     ])
   })
 
-  it("should return formatted validation errors", function () {
+  it("should return validation errors with parameter name and path", function () {
     const result = validationErrors(state, ["/", "post"])
 
     expect(result).toEqual([
-      "id: Value must be an integer",
-      "name: Value must be a string"
+      "For 'with.dot' at path 'id': Value must be an integer.",
+      "For 'with.dot' at path 'name': Value must be a string."
+    ])
+  })
+
+  it("should return validation errors with parameter name and path for nested parameters", function () {
+    const result = validationErrors(state, ["/nested", "post"])
+
+    expect(result).toEqual([
+      "For 'arrayWithObjects' at path '[0]': Parameter string value must be valid JSON.",
+      "For 'arrayWithObjects' at path '[1].name': Value must be a string.",
+      "For 'objectWithArray' at path 'a[0].b': Value must be a number.",
+      "For 'objectWithoutArray' at path 'c.d.e': Value must be a string."
     ])
   })
 })

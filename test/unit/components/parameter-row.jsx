@@ -9,11 +9,17 @@ import ParameterRow from "core/components/parameter-row"
 import {
   memoizedSampleFromSchema,
   memoizedCreateXMLExample,
+  mergeJsonSchema,
 } from "core/plugins/json-schema-5-samples/fn/index"
 import makeGetSampleSchema from "core/plugins/json-schema-5-samples/fn/get-sample-schema"
 import makeGetJsonSampleSchema from "core/plugins/json-schema-5-samples/fn/get-json-sample-schema"
 import makeGetYamlSampleSchema from "core/plugins/json-schema-5-samples/fn/get-yaml-sample-schema"
 import makeGetXmlSampleSchema from "core/plugins/json-schema-5-samples/fn/get-xml-sample-schema"
+import { foldType } from "core/plugins/json-schema-2020-12-samples/fn/index"
+import {
+  makeGetType,
+  isBooleanJSONSchema,
+} from "core/plugins/json-schema-2020-12/fn.js"
 
 describe("<ParameterRow/>", () => {
   const createProps = ({ param, isOAS3 }) => {
@@ -31,6 +37,11 @@ describe("<ParameterRow/>", () => {
         getYamlSampleSchema: makeGetYamlSampleSchema(getSystem),
         getXmlSampleSchema: makeGetXmlSampleSchema(getSystem),
         getSampleSchema: makeGetSampleSchema(getSystem),
+        mergeJsonSchema,
+        jsonSchema202012: {
+          foldType,
+          getType: makeGetType(() => ({ isBooleanJSONSchema })),
+        },
       },
       oas3Selectors: { activeExamplesMember: () => {} },
       getConfigs: () => ({}),
@@ -171,6 +182,10 @@ describe("bug #5573: zero default and example values", function () {
         getYamlSampleSchema: makeGetYamlSampleSchema(getSystem),
         getXmlSampleSchema: makeGetXmlSampleSchema(getSystem),
         getSampleSchema: makeGetSampleSchema(getSystem),
+        jsonSchema202012: {
+          foldType,
+          getType: makeGetType(() => ({ isBooleanJSONSchema })),
+        },
       },
       getConfigs: () => {
         return {}
@@ -223,6 +238,10 @@ describe("bug #5573: zero default and example values", function () {
         getYamlSampleSchema: makeGetYamlSampleSchema(getSystem),
         getXmlSampleSchema: makeGetXmlSampleSchema(getSystem),
         getSampleSchema: makeGetSampleSchema(getSystem),
+        jsonSchema202012: {
+          foldType,
+          getType: makeGetType(() => ({ isBooleanJSONSchema })),
+        },
       },
     })
     const props = {
@@ -276,6 +295,11 @@ describe("bug #5573: zero default and example values", function () {
         getYamlSampleSchema: makeGetYamlSampleSchema(getSystem),
         getXmlSampleSchema: makeGetXmlSampleSchema(getSystem),
         getSampleSchema: makeGetSampleSchema(getSystem),
+        mergeJsonSchema,
+        jsonSchema202012: {
+          foldType,
+          getType: makeGetType(() => ({ isBooleanJSONSchema })),
+        },
       },
     })
     const props = {
@@ -329,6 +353,11 @@ describe("bug #5573: zero default and example values", function () {
         getYamlSampleSchema: makeGetYamlSampleSchema(getSystem),
         getXmlSampleSchema: makeGetXmlSampleSchema(getSystem),
         getSampleSchema: makeGetSampleSchema(getSystem),
+        mergeJsonSchema,
+        jsonSchema202012: {
+          foldType,
+          getType: makeGetType(() => ({ isBooleanJSONSchema })),
+        },
       },
     })
     const props = {

@@ -1,4 +1,4 @@
-import { Map } from "immutable"
+import { List, Map } from "immutable"
 import win from "../../window"
 
 
@@ -83,7 +83,8 @@ const curlify = (request, escape, newLine, ext = "") => {
   let headers = request.get("headers")
   curlified += "curl" + ext
 
-  if (request.has("curlOptions")) {
+  const curlOptions = request.get("curlOptions")
+  if (List.isList(curlOptions) && !curlOptions.isEmpty()) {
     addWords(...request.get("curlOptions"))
   }
 
@@ -155,17 +156,14 @@ const curlify = (request, escape, newLine, ext = "") => {
   return curlified
 }
 
-// eslint-disable-next-line camelcase
 export const requestSnippetGenerator_curl_powershell = (request) => {
   return curlify(request, escapePowershell, "`\n", ".exe")
 }
 
-// eslint-disable-next-line camelcase
 export const requestSnippetGenerator_curl_bash = (request) => {
   return curlify(request, escapeShell, "\\\n")
 }
 
-// eslint-disable-next-line camelcase
 export const requestSnippetGenerator_curl_cmd = (request) => {
   return curlify(request, escapeCMD, "^\n")
 }
