@@ -1,7 +1,5 @@
-/*
- * SPDX-FileCopyrightText: Copyright 2024 ThingsBoard, Inc.
- * SPDX-License-Identifier: Apache-2.0
- */
+// SPDX-FileCopyrightText: Copyright ThingsBoard, Inc.
+// SPDX-License-Identifier: Apache-2.0
 import _objectSpread from "@babel/runtime-corejs3/helpers/objectSpread2";
 import _objectWithoutProperties from "@babel/runtime-corejs3/helpers/objectWithoutProperties";
 import stockHttp from "swagger-client/es/http";

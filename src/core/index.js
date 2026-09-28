@@ -1,11 +1,8 @@
 /**
  * @prettier
  */
-/*
- * SPDX-FileCopyrightText: Modifications Copyright (C) 2024-present ThingsBoard, Inc.
- * This file has been modified from the original swagger-ui source.
- * See the project's Git history for details of the changes.
- */
+// SPDX-FileCopyrightText: Modifications Copyright ThingsBoard, Inc.
+// SPDX-License-Identifier: Apache-2.0
 import System from "./system"
 // presets
 import BasePreset from "./presets/base"

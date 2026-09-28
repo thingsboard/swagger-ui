@@ -1,7 +1,5 @@
-/*
- * SPDX-FileCopyrightText: Copyright 2024 ThingsBoard, Inc.
- * SPDX-License-Identifier: Apache-2.0
- */
+// SPDX-FileCopyrightText: Copyright ThingsBoard, Inc.
+// SPDX-License-Identifier: Apache-2.0
 export const AUTHORIZE_HTTP_JWT_TOKEN = "authorize_http_jwt_token"
 
 export const authorizeHttpJwtToken = (payload) => {
