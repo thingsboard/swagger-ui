@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Copyright ThingsBoard, Inc.
+// SPDX-License-Identifier: Apache-2.0
 import components from "./components"
 import wrapComponents from "./wrap-components"
 import * as authWrapActions from "./auth-extensions/wrap-actions"

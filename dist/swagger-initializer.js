@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Modifications Copyright ThingsBoard, Inc.
+// SPDX-License-Identifier: Apache-2.0
 window.onload = function() {
   //<editor-fold desc="Changeable Configuration Block">
 

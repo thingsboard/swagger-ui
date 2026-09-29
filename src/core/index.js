@@ -1,6 +1,8 @@
 /**
  * @prettier
  */
+// SPDX-FileCopyrightText: Modifications Copyright ThingsBoard, Inc.
+// SPDX-License-Identifier: Apache-2.0
 import System from "./system"
 // presets
 import BasePreset from "./presets/base"

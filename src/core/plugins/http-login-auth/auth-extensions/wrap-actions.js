@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Copyright ThingsBoard, Inc.
+// SPDX-License-Identifier: Apache-2.0
 import { fromJS } from "immutable"
 
 export const authorizeWithPersistOption = (oriAction, { authActions }) => {

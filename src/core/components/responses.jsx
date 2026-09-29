@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Modifications Copyright ThingsBoard, Inc.
+// SPDX-License-Identifier: Apache-2.0
 import React from "react"
 import { fromJS, Iterable } from "immutable"
 import PropTypes from "prop-types"
